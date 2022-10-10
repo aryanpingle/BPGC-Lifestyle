@@ -2,6 +2,7 @@ package driver;
 
 // Import all apps
 import package_bmi.BMIApp;
+import package_exercise.ExerciseApp;
 
 // Other imports
 import java.util.Scanner;
@@ -13,22 +14,22 @@ public final class Main {
         App.sc = sc;
 
         // Infinite Loop
+        MainLoop:
         while(true) {
             Helper.resetScreen();
 
             System.out.println("[1] BMI App");
-            System.out.println("[2] EXIT");
+            System.out.println("[2] Exercise App");
+            System.out.println("[3] EXIT");
+            System.out.println("****************");
+            System.out.println("type BACK anytime to go to the previous page");
+            System.out.println("type EXIT anytime to terminate the program");
+            System.out.println();
     
             System.out.print("Enter your choice: ");
             
             // Enter user's choice
             String choice = sc.nextLine().trim().toLowerCase();
-    
-            // If user wants to exit
-            if(choice.equals("2")) {
-                showExitScreen();
-                break;
-            }
 
             // Based on user input
             App app = null;
@@ -37,9 +38,17 @@ public final class Main {
                 case "1":
                     app = new BMIApp();
                     break;
+                case "2":
+                    app = new ExerciseApp();
+                    break;
+                case "3":
+                    break MainLoop;
             }
             
-            app.start();
+            try {
+                app.start();
+            }
+            catch(BackException e) {}
         }
         
         showExitScreen();
