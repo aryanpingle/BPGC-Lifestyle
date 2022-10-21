@@ -1,6 +1,6 @@
 package driver;
 
-public class Helper {
+public final class UI {
     static void resetScreen() {
         clearScreen();
         printHeader();
@@ -35,5 +35,10 @@ public class Helper {
             System.out.println(e);
         }
         System.out.flush();
+    }
+
+    static void showExitScreen() {
+        resetScreen();
+        System.out.println("PROGRAM FINISHED!");
     }
 }

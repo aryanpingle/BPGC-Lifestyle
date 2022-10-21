@@ -7,7 +7,7 @@ import package_exercise.ExerciseApp;
 // Other imports
 import java.util.Scanner;
  
-public final class Main {
+public final class Driver {
     public static void main(String[] args) {
         // Create only one copy of Scanner
         Scanner sc = new Scanner(System.in);
@@ -16,14 +16,13 @@ public final class Main {
         // Infinite Loop
         MainLoop:
         while(true) {
-            Helper.resetScreen();
+            UI.resetScreen();
 
             System.out.println("[1] BMI App");
             System.out.println("[2] Exercise App");
             System.out.println("[3] EXIT");
             System.out.println("****************");
             System.out.println("type BACK anytime to go to the previous page");
-            System.out.println("type EXIT anytime to terminate the program");
             System.out.println();
     
             System.out.print("Enter your choice: ");
@@ -51,11 +50,6 @@ public final class Main {
             catch(BackException e) {}
         }
         
-        showExitScreen();
-    }
-
-    private static void showExitScreen() {
-        Helper.resetScreen();
-        System.out.println("PROGRAM FINISHED!");
+        UI.showExitScreen();
     }
 }

@@ -27,15 +27,17 @@ public class BMIApp extends App {
 
             weight = inputDouble();
 
-            takeHeightInput();
+            try {
+                takeHeightInput();
+            }
+            catch(BackException e) {
+                takeWeightInput();
+            }
         }
         catch(NumberFormatException e) {
             System.out.println("\n\nWRONG FORMAT");
             Thread.sleep(1000);
             takeWeightInput();
-            return;
-        }
-        catch(BackException e) {
             return;
         }
     }
@@ -56,15 +58,13 @@ public class BMIApp extends App {
             Thread.sleep(1000);
             takeHeightInput();
         }
-        catch(BackException e) {
-            throw new BackException();
-        }
     }
 
     private void displayBMI() {
         resetScreen();
 
         System.out.println("Your BMI is: " + weight / (height * height));
+        System.out.println("\nPress any key to continue");
 
         waitForInput();
     }

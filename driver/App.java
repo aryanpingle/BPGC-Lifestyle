@@ -2,7 +2,7 @@ package driver;
 
 import java.util.Scanner;
 
-import driver.Helper;
+import driver.UI;
 
 public abstract class App {
     static Scanner sc;
@@ -39,6 +39,6 @@ public abstract class App {
     }
 
     public final void resetScreen() {
-        Helper.resetScreen();
+        UI.resetScreen();
     }
 }
