@@ -2,6 +2,8 @@ package package_bmi;
 
 import driver.App;
 import driver.BackException;
+import driver.Helper;
+import driver.SafeInput;
 
 public class BMIApp extends App {
     private double weight = 0;
@@ -15,17 +17,16 @@ public class BMIApp extends App {
         catch(BackException e) {
             return;
         }
-        catch(InterruptedException e) {}
     }
 
-    private void takeWeightInput() throws BackException, InterruptedException {
+    private void takeWeightInput() throws BackException {
         try {
             // Reset the screen
             resetScreen();
             
             System.out.print("Enter your weight (kg): ");
 
-            weight = inputDouble();
+            weight = SafeInput.inputDouble();
 
             try {
                 takeHeightInput();
@@ -36,36 +37,33 @@ public class BMIApp extends App {
         }
         catch(NumberFormatException e) {
             System.out.println("\n\nWRONG FORMAT");
-            Thread.sleep(1000);
+            Helper.sleep(1.5);
             takeWeightInput();
             return;
         }
     }
 
-    private void takeHeightInput() throws BackException, InterruptedException {
+    private void takeHeightInput() throws BackException {
         try {
-            // Reset the screen
-            resetScreen();
-            
             System.out.print("Enter your height (cm): ");
 
-            height = inputDouble() / 100;
+            height = SafeInput.inputDouble() / 100;
 
             displayBMI();
         }
         catch(NumberFormatException e) {
             System.out.println("\n\nWRONG FORMAT");
-            Thread.sleep(1000);
+            Helper.sleep(1.5);
+            resetScreen();
             takeHeightInput();
         }
     }
 
     private void displayBMI() {
-        resetScreen();
+        System.out.println();
+        System.out.println("Calculated BMI: " + weight / (height * height));
+        System.out.println("\nPress [ENTER] to continue");
 
-        System.out.println("Your BMI is: " + weight / (height * height));
-        System.out.println("\nPress any key to continue");
-
-        waitForInput();
+        SafeInput.waitForInput();
     }
 }

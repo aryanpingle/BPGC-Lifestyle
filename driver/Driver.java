@@ -3,16 +3,9 @@ package driver;
 // Import all apps
 import package_bmi.BMIApp;
 import package_exercise.ExerciseApp;
-
-// Other imports
-import java.util.Scanner;
  
 public final class Driver {
     public static void main(String[] args) {
-        // Create only one copy of Scanner
-        Scanner sc = new Scanner(System.in);
-        App.sc = sc;
-
         // Infinite Loop
         MainLoop:
         while(true) {
@@ -28,7 +21,13 @@ public final class Driver {
             System.out.print("Enter your choice: ");
             
             // Enter user's choice
-            String choice = sc.nextLine().trim().toLowerCase();
+            String choice = "";
+            try {
+                choice = SafeInput.inputLine().trim().toLowerCase();
+            }
+            catch(BackException e) {
+                break;
+            }
 
             // Based on user input
             App app = null;
@@ -42,6 +41,10 @@ public final class Driver {
                     break;
                 case "3":
                     break MainLoop;
+                default:
+                    System.out.println("\nWRONG INPUT");
+                    Helper.sleep(2);
+                    continue MainLoop;
             }
             
             try {

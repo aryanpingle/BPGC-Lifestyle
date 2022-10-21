@@ -2,6 +2,7 @@ package package_exercise;
 
 import driver.App;
 import driver.BackException;
+import driver.SafeInput;
 
 public class ExerciseApp extends App {
     @Override
@@ -13,7 +14,7 @@ public class ExerciseApp extends App {
         System.out.println("Enter anything to continue");
 
         // Wait for user to press some key
-        inputLine();
+        SafeInput.inputLine();
         
         // Reset the screen
         resetScreen();
@@ -22,7 +23,7 @@ public class ExerciseApp extends App {
         System.out.println("Enter anything to continue");
 
         // Wait for user to press some key
-        inputLine();
+        SafeInput.inputLine();
 
         return;
     }
