@@ -19,6 +19,11 @@ public class BMIApp extends App {
         }
     }
 
+    @Override
+    public String getAppName() {
+        return "BMI Information";
+    }
+
     private void takeWeightInput() throws BackException {
         try {
             // Reset the screen
@@ -45,6 +50,10 @@ public class BMIApp extends App {
 
     private void takeHeightInput() throws BackException {
         try {
+            // Reset the screen
+            resetScreen();
+
+            System.out.println("Enter your weight (kg): " + this.weight);
             System.out.print("Enter your height (cm): ");
 
             height = SafeInput.inputDouble() / 100;
