@@ -7,8 +7,14 @@ public final class UI {
     }
  
     private static void printHeader() {
+        System.out.println("**********************************************");
+        System.out.println("************                      ************");
+        System.out.println("************    BPGC LIFESTYLE    ************");
+        System.out.println("************                      ************");
+        System.out.println("**********************************************");
+        System.out.println();
         System.out.println("----------------------------------------------");
-        System.out.println("--------------- BPGC LIFESTYLE ---------------");
+        System.out.println("             COMMANDS: BACK, EXIT             ");
         System.out.println("----------------------------------------------");
         System.out.println();
     }

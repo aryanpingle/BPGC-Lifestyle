@@ -14,8 +14,6 @@ public final class Driver {
             System.out.println("[1] BMI App");
             System.out.println("[2] Exercise App");
             System.out.println("[3] EXIT");
-            System.out.println("****************");
-            System.out.println("type BACK anytime to go to the previous page");
             System.out.println();
     
             System.out.print("Enter your choice: ");
