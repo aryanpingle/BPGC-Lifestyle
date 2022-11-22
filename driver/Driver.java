@@ -11,7 +11,8 @@ public final class Driver {
         while(true) {
             UI.resetScreen();
 
-            System.out.println("[1] BMI App");
+            System.out.println();
+            System.out.println("[1] BMI Calculator");
             System.out.println("[2] Exercise App");
             System.out.println("[3] EXIT");
             System.out.println();
@@ -40,8 +41,7 @@ public final class Driver {
                 case "3":
                     break MainLoop;
                 default:
-                    System.out.println("\nWRONG INPUT");
-                    Helper.sleep(2);
+                    UI.printError("INVALID OPTION");
                     continue MainLoop;
             }
             

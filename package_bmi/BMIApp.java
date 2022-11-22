@@ -21,7 +21,7 @@ public class BMIApp extends App {
 
     @Override
     public String getAppName() {
-        return "BMI Information";
+        return "BMI Calculator";
     }
 
     private void takeWeightInput() throws BackException {
@@ -41,10 +41,7 @@ public class BMIApp extends App {
             }
         }
         catch(NumberFormatException e) {
-            System.out.println("\n\nWRONG FORMAT");
-            Helper.sleep(1.5);
             takeWeightInput();
-            return;
         }
     }
 
@@ -61,9 +58,6 @@ public class BMIApp extends App {
             displayBMI();
         }
         catch(NumberFormatException e) {
-            System.out.println("\n\nWRONG FORMAT");
-            Helper.sleep(1.5);
-            resetScreen();
             takeHeightInput();
         }
     }
