@@ -37,20 +37,36 @@ public class SafeInput {
      * Returns the user input as an int
      * @return The user input
      * @throws BackException
+     * @throws NumberFormatException
      */
     
-    public static final int inputInteger() throws BackException {
-        return Integer.parseInt(inputLine());
+    public static final int inputInteger() throws BackException, NumberFormatException {
+        try {
+            return Integer.parseInt(inputLine());
+        }
+        catch(NumberFormatException err) {
+            UI.printError(err);
+
+            throw err;
+        }
     }
 
     /**
      * Returns the user input as a double
      * @return The user input
      * @throws BackException
+     * @throws NumberFormatException
      */
     
-    public static final double inputDouble() throws BackException {
-        return Double.parseDouble(inputLine());
+    public static final double inputDouble() throws BackException, NumberFormatException {
+        try {
+            return Double.parseDouble(inputLine());
+        }
+        catch(NumberFormatException err) {
+            UI.printError(err);
+
+            throw err;
+        }
     }
     
     /**
