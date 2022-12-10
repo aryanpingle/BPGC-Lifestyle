@@ -55,7 +55,7 @@ public final class UI {
         printBoxed(String.join(
         "\n",
         "COMMANDS: BACK, EXIT"
-        ), SCREENWIDTH, '+', 1);
+        ), '+', 1);
         resetTextColor();
     }
     
@@ -95,7 +95,7 @@ public final class UI {
         printBoxed(String.join(
         "\n",
         "" + text
-        ), SCREENWIDTH, ' ', 1);
+        ), ' ', 1);
         resetTextColor();
     }
     
@@ -129,18 +129,18 @@ public final class UI {
         "----------------------",
         "Press [ENTER] to retry"
         );
-        printBoxed(s, SCREENWIDTH, '-', 1);
+        printBoxed(s, '-', 1);
         
         SafeInput.waitForInput();
         
         resetTextColor();
     }
     
-    public static void printBoxed(File file, int line_length, char outline_char, int horizontal_padding) {
-        printBoxed(Helper.readTextFile(file), line_length, outline_char, horizontal_padding);
+    public static void printBoxed(File file, char outline_char, int horizontal_padding) {
+        printBoxed(Helper.readTextFile(file), outline_char, horizontal_padding);
     }
     
-    public static void printBoxed(String text, int line_length, char outline_char, int horizontal_padding) {
+    public static void printBoxed(String text, char outline_char, int horizontal_padding) {
         String[] textLines = text.split("\n");
         for(int i = 0; i < textLines.length; ++i) {
             textLines[i] = textLines[i].replaceAll("\\s+", " ");
@@ -156,9 +156,9 @@ public final class UI {
             }
         }
         int minOccupiedLength = 2 + 2*horizontal_padding + largestWordLength;
-        line_length = Math.max(line_length, minOccupiedLength);
+        SCREENWIDTH = Math.max(SCREENWIDTH, minOccupiedLength);
         
-        int effective_length = line_length - 2 - 2*horizontal_padding;
+        int effective_length = SCREENWIDTH - 2 - 2*horizontal_padding;
         LinkedList<String> FINAL = new LinkedList<String>();
         for(String line: textLines) {
             int running_length = 0;
@@ -192,7 +192,7 @@ public final class UI {
         String output = "";
         
         // First, add the starting line
-        output += repeatChar(outline_char, line_length) + "\n";
+        output += repeatChar(outline_char, SCREENWIDTH) + "\n";
         
         for (String line : FINAL) {
             int right_spaces = (effective_length / 2) - (line.length() / 2);
@@ -209,7 +209,7 @@ public final class UI {
         }
         
         // Finally, add the ending line
-        output += repeatChar(outline_char, line_length);
+        output += repeatChar(outline_char, SCREENWIDTH);
         
         System.out.println(output);
     }

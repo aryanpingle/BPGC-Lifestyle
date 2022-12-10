@@ -12,9 +12,11 @@ public final class Driver {
             UI.resetScreen();
 
             System.out.println();
-            System.out.println("[1] BMI Calculator");
-            System.out.println("[2] Exercise App");
-            System.out.println("[3] EXIT");
+            System.out.println("[1] BMI Information");
+            System.out.println("[2] Targeted Exercise");
+            System.out.println("[3] Pharmacy API");
+            System.out.println("[4] Nutrition Tracker");
+            System.out.println("[5] EXIT");
             System.out.println();
     
             System.out.print("Enter your choice: ");
@@ -38,7 +40,7 @@ public final class Driver {
                 case "2":
                     app = new ExerciseApp();
                     break;
-                case "3":
+                case "5":
                     break MainLoop;
                 default:
                     UI.printError("INVALID OPTION");
