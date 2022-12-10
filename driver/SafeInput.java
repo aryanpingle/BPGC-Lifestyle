@@ -76,4 +76,13 @@ public class SafeInput {
     public static final void waitForInput() {
         sc.nextLine();
     }
+    
+    /**
+     * Pauses execution until the user enters some value
+     */
+
+    public static final void waitForInput(int x) {
+        System.out.println("- press [ENTER] to continue -");
+        sc.nextLine();
+    }
 }
