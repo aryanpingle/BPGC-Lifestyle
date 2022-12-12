@@ -5,6 +5,7 @@ import driver.BackException;
 import driver.Helper;
 import driver.SafeInput;
 import driver.UI;
+import driver.UI.Color;
 
 public class BMIApp extends App {
     // Constants
@@ -22,9 +23,17 @@ public class BMIApp extends App {
     private int in = -1;
     private double bmi = -1;
 
+    private void setTestVariables() {
+        weightUnitChoice = 1;
+        weight = 80;
+        heightUnitChoice = 1;
+        height = 183;
+    }
+
     @Override
     public void start() {
         try {
+            // setTestVariables();
             getWeightUnits();
         }
         catch(BackException e) {
@@ -208,19 +217,73 @@ public class BMIApp extends App {
         SafeInput.waitForInput(1);
     }
 
+    private String doubleTo2DP(double val) {
+        String output = val + ".00";
+        return output.substring(0, output.indexOf(".")+3);
+    }
+
     private void printBMICategories() {
-        String bmiString = bmi + ".00";
-        bmiString = bmiString.substring(0, bmiString.indexOf("."));
+        String bmiString = doubleTo2DP(bmi);
+
+        double[] w = {
+            reverseCalculateWeight(35, height),
+            reverseCalculateWeight(30, height),
+            reverseCalculateWeight(25, height),
+            reverseCalculateWeight(18.5, height)
+        };
+
+        if(weightUnitChoice == 2) {
+            for (int i = 0; i < w.length; i++) {
+                w[i] = kgToLb(w[i]);
+            }
+        }
 
         System.out.println();
-        System.out.println("+----------------------------+");
-        System.out.println("|    category    | bmi range |");
-        System.out.println("+----------------+-----------+");
-        System.out.println("| SEVERELY OBESE |   > 35    |" + ((bmi > 35) ? " <--- Your BMI (" + bmiString + ")" : ""));
-        System.out.println("|      OBESE     |   30-35   |" + ((bmi <= 35 && bmi > 30) ? " <--- Your BMI (" + bmiString + ")" : ""));
-        System.out.println("|    OVERWEIGHT  |   25-30   |" + ((bmi <= 30 && bmi > 25) ? " <--- Your BMI (" + bmiString + ")" : ""));
-        System.out.println("|     HEALTHY    |  18.5-25  |" + ((bmi <= 25 && bmi > 18.5) ? " <--- Your BMI (" + bmiString + ")" : ""));
-        System.out.println("|   UNDERWEIGHT  |  < 18.5   |" + ((bmi < 18.5) ? " <--- Your BMI (" + bmiString + ")" : ""));
-        System.out.println("+----------------------------+");
+        System.out.println("+----------------+-----------+--------------+");
+        System.out.println("|    category    | bmi range | weight range |");
+        System.out.println("+----------------+-----------+--------------+");
+        UI.colorPrintln("| "+checkBMI("SEVERELY OBESE", 0)+" |   > 35    |"+UI.alignCenter("> " + doubleTo2DP(w[0]), 14)+"|");
+        UI.colorPrintln("|      "+checkBMI("OBESE", 1)+"     |   30-35   |"+UI.alignCenter("< " + doubleTo2DP(w[0]), 14)+"|");
+        UI.colorPrintln("|    "+checkBMI("OVERWEIGHT", 2)+"  |   25-30   |"+UI.alignCenter("< " + doubleTo2DP(w[1]), 14)+"|");
+        UI.colorPrintln("|     "+checkBMI("HEALTHY", 3)+"    |  18.5-25  |"+UI.alignCenter("< " + doubleTo2DP(w[2]), 14)+"|");
+        UI.colorPrintln("|   "+checkBMI("UNDERWEIGHT", 4)+"  |  < 18.5   |"+UI.alignCenter("< " + doubleTo2DP(w[3]), 14)+"|");
+        System.out.println("+----------------+-----------+--------------+");
+
+        System.out.println();
+        UI.colorPrintln("Your BMI is ^b@w"+bmiString+"^R@R");
+        UI.colorPrintln("Your healthy weight range is ^b@w" + doubleTo2DP(w[3]) + (weightUnitChoice==1?"kg":"lb") + "^R@R to ^b@w" + doubleTo2DP(w[2]) + (weightUnitChoice==1?"kg":"lb") + "^R@R");
+    }
+
+    private String checkBMI(String text, int bmiCategory) {
+        boolean isTheOne = false;
+
+        switch(bmiCategory) {
+            case 0: isTheOne = bmi > 35;
+                break;
+            case 1:
+                isTheOne = bmi <= 35 && bmi > 30;
+                break;
+            case 2:
+                isTheOne = bmi <= 30 && bmi > 25;
+                break;
+            case 3:
+                isTheOne = bmi <= 25 && bmi > 18.5;
+                break;
+            case 4:
+                isTheOne = bmi <= 18.5;
+                break;
+        }
+
+        if(isTheOne) return "^b@w" + text + "^R@R";
+
+        return text;
+    }
+
+    private double kgToLb(double kg) {
+        return kg / 0.453592;
+    }
+
+    private double reverseCalculateWeight(double bmi, double height) {
+        return (height / 100) * (height / 100) * bmi;
     }
 }

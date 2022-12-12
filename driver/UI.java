@@ -1,6 +1,7 @@
 package driver;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public final class UI {
@@ -272,5 +273,45 @@ public final class UI {
         String leftString = repeatChar(leftCharacter, halfLength);
         String rightString = repeatChar(rightCharacter, halfLength) + (halfLength*2 != (SCREENWIDTH-len) ? rightCharacter : "");
         System.out.print(leftString + message + rightString);
+    }
+
+    public static String alignCenter(String text, int length) {
+        int spacesLength = length - removeColor(text).length();
+        return repeatChar(' ', spacesLength / 2) + text + repeatChar(' ', spacesLength - (spacesLength / 2));
+    }
+
+    public static String alignLeft(String text, int length) {
+        int spacesLength = length - removeColor(text).length();
+        return text + repeatChar(' ', spacesLength);
+    }
+
+    public static String alignRight(String text, int length) {
+        int spacesLength = length - removeColor(text).length();
+        return repeatChar(' ', spacesLength) + text;
+    }
+
+    public static void colorPrint(String text) {
+        if(!text.contains("^") && !text.contains("@")) {
+            System.out.print(text);
+            return;
+        };
+
+        HashMap<String, Color> colorcodes = new HashMap<String, Color>();
+        colorcodes.put("c", Color.CYAN);
+        colorcodes.put("r", Color.RED);
+        colorcodes.put("R", Color.RESET);
+        colorcodes.put("y", Color.YELLOW);
+        colorcodes.put("b", Color.BLACK);
+        colorcodes.put("w", Color.WHITE);
+
+        for(String code: colorcodes.keySet()) {
+            text = text.replace("^"+code, colorcodes.get(code).textColor);
+            text = text.replace("@"+code, colorcodes.get(code).backgroundColor);
+        }
+        System.out.print(text);
+    }
+
+    public static void colorPrintln(String text) {
+        colorPrint(text + "\n");
     }
 }
