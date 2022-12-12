@@ -17,7 +17,6 @@ public class SafeInput {
         }
         if(input.equals("EXIT")) {
             UI.showExitScreen();
-            System.exit(0);
         }
     }
 
@@ -45,6 +44,22 @@ public class SafeInput {
      * @throws NumberFormatException
      */
     
+    public static final int inputInteger(int fallback) throws BackException, NumberFormatException {
+        try {
+            if(fallback == -1) return Integer.parseInt(inputLine());
+            
+            UI.setTextColor(Color.YELLOW);
+            System.out.println(fallback);
+            UI.resetTextColor();
+            return fallback;
+        }
+        catch(NumberFormatException err) {
+            UI.printError(err);
+
+            throw err;
+        }
+    }
+    
     public static final int inputInteger() throws BackException, NumberFormatException {
         try {
             return Integer.parseInt(inputLine());
@@ -62,6 +77,22 @@ public class SafeInput {
      * @throws BackException
      * @throws NumberFormatException
      */
+    
+    public static final double inputDouble(double fallback) throws BackException, NumberFormatException {
+        try {
+            if(fallback == -1) return Double.parseDouble(inputLine());
+            
+            UI.setTextColor(Color.YELLOW);
+            System.out.println(fallback);
+            UI.resetTextColor();
+            return fallback;
+        }
+        catch(NumberFormatException err) {
+            UI.printError(err);
+
+            throw err;
+        }
+    }
     
     public static final double inputDouble() throws BackException, NumberFormatException {
         try {
@@ -87,7 +118,8 @@ public class SafeInput {
      */
 
     public static final void waitForInput(int x) {
-        System.out.println("- press [ENTER] to continue -");
+        UI.printFittedLine(" press "+ UI.Color.YELLOW.backgroundColor + UI.Color.BLACK.textColor +"ENTER"+ UI.Color.RESET.textColor + UI.Color.RESET.backgroundColor +" to continue ", '/');
+        System.out.println();
         sc.nextLine();
     }
 }

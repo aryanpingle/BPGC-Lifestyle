@@ -36,6 +36,8 @@ public final class UI {
             Helper.sleep(0.1);
         }
         resetTextColor();
+        System.out.println();
+        printFittedLine(" press "+ UI.Color.YELLOW.backgroundColor + UI.Color.BLACK.textColor +"ENTER"+ UI.Color.RESET.textColor + UI.Color.RESET.backgroundColor +" to begin ", '/');
         SafeInput.waitForInput();
     }
 
@@ -67,10 +69,7 @@ public final class UI {
         
         // Print the commands
         setTextColor(Color.YELLOW);
-        printBoxed(String.join(
-        "\n",
-        "COMMANDS: BACK, EXIT"
-        ), '+', 1);
+        printBoxed(" commands: BACK | EXIT ", '#', 1);
         resetTextColor();
     }
     
@@ -114,26 +113,30 @@ public final class UI {
     }
     
     static void printNavBar(String text) {
-        setTextColor(Color.YELLOW);
-        printBoxed(String.join(
-        "\n",
-        "" + text
-        ), ' ', 1);
+        setTextColor(Color.CYAN);
+        printFittedLine(" " + text + " ", '<', '>');
         resetTextColor();
+        System.out.println();
+        System.out.println();
     }
     
     static void showExitScreen() {
         resetScreen();
-        System.out.println("PROGRAM FINISHED!");
+        System.out.println();
+        printBoxed(String.join("\n",
+        "Thank you for using BPGC Lifestyle, hope you enjoyed!"
+        ), '/', 1);
+        SafeInput.waitForInput();
+
+        System.exit(0);
     }
     
-    static void printError(Exception err) {
+    public static void printError(Exception err) {
         // Switch to red color for error
         setTextColor(Color.RED);
         
         // Handle NumberFormatException
         if(err instanceof NumberFormatException) {
-            System.out.println();
             printError("WRONG INPUT FORMAT");
             return;
         }
@@ -141,7 +144,7 @@ public final class UI {
         resetTextColor();
     }
     
-    static void printError(String err) {
+    public static void printError(String err) {
         // Switch to red color for error
         setTextColor(Color.RED);
         
@@ -243,5 +246,31 @@ public final class UI {
             output += c;
         }
         return output;
+    }
+
+    public static void printFittedLine(String message, char paddingCharacter) {
+        printFittedLine(message, paddingCharacter, paddingCharacter);
+    }
+
+    /**
+     * Returns the given String without any Color Codes
+     */
+
+    private static String removeColor(String text) {
+        for(Color i : new Color[]{
+            Color.RESET, Color.BLACK, Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.PURPLE, Color.CYAN, Color.WHITE
+        }) {
+            text = text.replace(i.textColor, "");
+            text = text.replace(i.backgroundColor, "");
+        }
+        return text;
+    }
+
+    public static void printFittedLine(String message, char leftCharacter, char rightCharacter) {
+        int len = removeColor(message).length();
+        int halfLength = (SCREENWIDTH - len) / 2;
+        String leftString = repeatChar(leftCharacter, halfLength);
+        String rightString = repeatChar(rightCharacter, halfLength) + (halfLength*2 != (SCREENWIDTH-len) ? rightCharacter : "");
+        System.out.print(leftString + message + rightString);
     }
 }
