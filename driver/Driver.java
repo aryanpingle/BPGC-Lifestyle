@@ -2,21 +2,27 @@ package driver;
 
 // Import all apps
 import package_bmi.BMIApp;
+import package_credits.CreditsApp;
 import package_exercise.ExerciseApp;
  
 public final class Driver {
     public static void main(String[] args) {
+        UI.showSplashScreen();
         // Infinite Loop
         MainLoop:
         while(true) {
             UI.resetScreen();
 
             System.out.println();
-            System.out.println("[1] BMI Information");
-            System.out.println("[2] Targeted Exercise");
-            System.out.println("[3] Pharmacy API");
-            System.out.println("[4] Nutrition Tracker");
-            System.out.println("[5] EXIT");
+            String[] choices = {
+                "BMI Information",
+                "Targeted Excercise",
+                "Pharmacy API",
+                "Nutrition Tracker",
+                "Credits",
+                "EXIT"
+            };
+            UI.printChoices(choices);
             System.out.println();
     
             System.out.print("Enter your choice: ");
@@ -41,6 +47,9 @@ public final class Driver {
                     app = new ExerciseApp();
                     break;
                 case "5":
+                    app = new CreditsApp();
+                    break;
+                case "6":
                     break MainLoop;
                 default:
                     UI.printError("INVALID OPTION");

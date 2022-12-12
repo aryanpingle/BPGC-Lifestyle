@@ -2,6 +2,8 @@ package driver;
 
 import java.util.Scanner;
 
+import driver.UI.Color;
+
 public class SafeInput {
     private static Scanner sc;
 
@@ -26,9 +28,12 @@ public class SafeInput {
      */
     
     public static final String inputLine() throws BackException {
+        UI.setTextColor(Color.YELLOW);
+
         String input = sc.nextLine();
-        
         validateInput(input);
+
+        UI.resetTextColor();
 
         return input;
     }
