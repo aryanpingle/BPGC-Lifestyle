@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 
 public final class UI {
-    static enum Color {
+    public static enum Color {
         RESET("\u001B[0m", "\u001B[0m"),
         BLACK("\u001B[30m", "\033[40m"),
         RED("\u001B[31m", "\u001B[41m"),
@@ -15,8 +15,8 @@ public final class UI {
         CYAN("\u001B[36m", "\u001B[46m"),
         WHITE("\u001B[37m", "\u001B[47m");
 
-        final String textColor;
-        final String backgroundColor;
+        public final String textColor;
+        public final String backgroundColor;
 
         private Color(String textColor, String backgroundColor) {
             this.textColor = textColor;
@@ -26,23 +26,38 @@ public final class UI {
 
     private static int SCREENWIDTH = 52;
     
+    public static void showSplashScreen() {
+        clearScreen();
+        setTextColor(Color.YELLOW);
+        String credits = Helper.readTextFile("driver/splashscreen.txt");
+        String[] creditsLines = credits.split("\n");
+        for (int i = 0; i < creditsLines.length; i++) {
+            System.out.println(creditsLines[i]);
+            Helper.sleep(0.1);
+        }
+        resetTextColor();
+        SafeInput.waitForInput();
+    }
+
+    public static void printChoices(String[] choices) {
+        for (int i = 0; i < choices.length; i++) {
+            System.out.print("[");
+            setTextColor(Color.YELLOW);
+            System.out.print(i+1);
+            resetTextColor();
+            System.out.println("] " + choices[i]);
+        }
+    }
+
     // Private functions
-
-    private static void setTextColor(Color color) {
-        System.out.print(color.textColor);
-    }
-
-    private static void resetTextColor() {
-        System.out.print(Color.RESET.textColor);
-    }
     
     private static void printHeader() {
         // Print the banner
         setTextColor(Color.CYAN);
-        System.out.println(" ____  ____   ___   ___                             ");
-        System.out.println("(  _ \\(  _ \\ / __) / __)                            ");
-        System.out.println(" ) _ ( ) __/( (_ \\( (__                             ");
-        System.out.println("(____/(__)   \\___/ \\___)                            ");
+        System.out.println("           ____  ____   ___   ___                 ");
+        System.out.println("          (  _ \\(  _ \\ / __) / __)                ");
+        System.out.println("           ) _ ( ) __/( (_ \\( (__                 ");
+        System.out.println("          (____/(__)   \\___/ \\___)                ");
         System.out.println(" __    __  ____  ____  ____  ____  _  _  __    ____ ");
         System.out.println("(  )  (  )(  __)(  __)/ ___)(_  _)( \\/ )(  )  (  __)");
         System.out.println("/ (_/\\ )(  ) _)  ) _) \\___ \\  )(   )  / / (_/\\ ) _) ");
@@ -84,6 +99,14 @@ public final class UI {
     }
     
     // General functions
+
+    public static void setTextColor(Color color) {
+        System.out.print(color.textColor);
+    }
+
+    public static void resetTextColor() {
+        System.out.print(Color.RESET.textColor);
+    }
     
     static void resetScreen() {
         clearScreen();
