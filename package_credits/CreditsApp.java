@@ -24,6 +24,7 @@ public class CreditsApp extends App {
         String credits = Helper.readTextFile("driver/credits.txt");
         UI.printBoxed(credits, '#', 1);
         UI.resetTextColor();
+        System.out.println();
         SafeInput.waitForInput(1);
     }
 }

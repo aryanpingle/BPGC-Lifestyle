@@ -2,10 +2,10 @@ package driver;
 
 // Import all apps
 import package_bmi.BMIApp;
-import package_credits.CreditsApp;
 import package_exercise.ExerciseApp;
 import package_nutrition.NutritionApp;
 import package_pharmacy.PharmacyApp;
+import package_credits.CreditsApp;
  
 public final class Driver {
     public static void main(String[] args) {
