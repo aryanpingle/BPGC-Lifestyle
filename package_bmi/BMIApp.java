@@ -25,9 +25,9 @@ public class BMIApp extends App {
 
     private void setTestVariables() {
         weightUnitChoice = 1;
-        weight = 80;
+        weight = -1;
         heightUnitChoice = 1;
-        height = 183;
+        height = -1;
     }
 
     @Override
@@ -40,7 +40,6 @@ public class BMIApp extends App {
             return;
         }
         catch(Exception e) {
-            UI.printError(e);
             start();
         }
     }
@@ -62,6 +61,7 @@ public class BMIApp extends App {
 
         if(weightUnitChoice != 1 && weightUnitChoice != 2) {
             weightUnitChoice = -1;
+            UI.printError(new NumberFormatException());
             throw new NumberFormatException();
         }
         
@@ -83,6 +83,7 @@ public class BMIApp extends App {
         
         if(weight <= 0) {
             weight = -1;
+            UI.printError(new NumberFormatException());
             throw new NumberFormatException();
         }
 
@@ -118,6 +119,7 @@ public class BMIApp extends App {
 
         if(heightUnitChoice != 1 && heightUnitChoice != 2) {
             heightUnitChoice = -1;
+            UI.printError(new NumberFormatException());
             throw new NumberFormatException();
         }
 
@@ -132,6 +134,7 @@ public class BMIApp extends App {
             
             if(height <= 0) {
                 height = -1;
+                UI.printError(new NumberFormatException());
                 throw new NumberFormatException();
             }
 
@@ -150,6 +153,7 @@ public class BMIApp extends App {
 
         if(ft <= 0) {
             ft = -1;
+            UI.printError(new NumberFormatException());
             throw new NumberFormatException();
         }
 
@@ -169,6 +173,7 @@ public class BMIApp extends App {
 
         if(in < 0) {
             in = -1;
+            UI.printError(new NumberFormatException());
             throw new NumberFormatException();
         }
 
