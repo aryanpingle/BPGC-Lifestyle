@@ -11,6 +11,14 @@ public class SafeInput {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Contains and performs no logic
+     * Throws a BackException if the input is 'BACK'
+     * Terminates the software if the input is 'EXIT'
+     * @param input
+     * @throws BackException
+     */
+    
     private static final void validateInput(String input) throws BackException {
         if(input.equals("BACK")) {
             throw new BackException();
@@ -25,7 +33,7 @@ public class SafeInput {
      * @return The user input
      * @throws BackException
      */
-    
+
     public static final String inputLine() throws BackException {
         UI.setTextColor(Color.YELLOW);
 
@@ -45,19 +53,14 @@ public class SafeInput {
      */
     
     public static final int inputInteger(int fallback) throws BackException, NumberFormatException {
-        try {
-            if(fallback == -1) return Integer.parseInt(inputLine());
-            
-            UI.setTextColor(Color.YELLOW);
-            System.out.println(fallback);
-            UI.resetTextColor();
-            return fallback;
+        if(fallback == -1) {
+            return inputInteger();
         }
-        catch(NumberFormatException err) {
-            UI.printError(err);
-
-            throw err;
-        }
+        
+        UI.setTextColor(Color.YELLOW);
+        System.out.println(fallback);
+        UI.resetTextColor();
+        return fallback;
     }
     
     public static final int inputInteger() throws BackException, NumberFormatException {
