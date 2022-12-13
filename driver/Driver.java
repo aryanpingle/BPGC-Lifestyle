@@ -4,6 +4,8 @@ package driver;
 import package_bmi.BMIApp;
 import package_credits.CreditsApp;
 import package_exercise.ExerciseApp;
+import package_nutrition.NutritionApp;
+import package_pharmacy.PharmacyApp;
  
 public final class Driver {
     public static void main(String[] args) {
@@ -45,6 +47,12 @@ public final class Driver {
                     break;
                 case "2":
                     app = new ExerciseApp();
+                    break;
+                case "3":
+                    app = new PharmacyApp();
+                    break;
+                case "4":
+                    app = new NutritionApp();
                     break;
                 case "5":
                     app = new CreditsApp();
