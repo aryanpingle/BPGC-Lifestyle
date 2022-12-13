@@ -16,7 +16,7 @@ public final class Driver {
             System.out.println();
             String[] choices = {
                 "BMI Information",
-                "Targeted Excercise",
+                "Targeted Exercise",
                 "Pharmacy API",
                 "Nutrition Tracker",
                 "Credits",
