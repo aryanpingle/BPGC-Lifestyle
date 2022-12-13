@@ -2,10 +2,8 @@ package package_bmi;
 
 import driver.App;
 import driver.BackException;
-import driver.Helper;
 import driver.SafeInput;
 import driver.UI;
-import driver.UI.Color;
 
 public class BMIApp extends App {
     // Constants

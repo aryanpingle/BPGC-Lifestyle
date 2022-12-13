@@ -1,5 +1,9 @@
 package driver;
 
+/**
+ * This class handles printing to the console and other UI-related tasks
+ */
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,6 +31,10 @@ public final class UI {
 
     private static int SCREENWIDTH = 52;
     
+    /**
+     * Displays the splash screen of the software
+     * To be used when the software boots up
+     */
     public static void showSplashScreen() {
         clearScreen();
         setTextColor(Color.YELLOW);
@@ -42,6 +50,10 @@ public final class UI {
         SafeInput.waitForInput();
     }
 
+    /**
+     * Prints the given choices in a formatted manner
+     * @param choices
+     */
     public static void printChoices(String[] choices) {
         for (int i = 0; i < choices.length; i++) {
             System.out.print("[");
@@ -52,8 +64,9 @@ public final class UI {
         }
     }
 
-    // Private functions
-    
+    /**
+     * Prints 'BPGC Lifestyle' and the helper commands 
+     */
     private static void printHeader() {
         // Print the banner
         setTextColor(Color.CYAN);
@@ -74,6 +87,10 @@ public final class UI {
         resetTextColor();
     }
     
+    /**
+     * Clears the console completely
+     * Works across platforms
+     */
     private static void clearScreen() {
         System.out.print("\f");
         System.out.print("\033[H\033[2J");
